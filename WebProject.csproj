@@ -81,7 +81,6 @@
     <Content Include="About.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Home_example.aspx" />
-    <Content Include="LeftMenu.ascx" />
     <Content Include="Login_example.aspx" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -100,7 +99,6 @@
     <Content Include="Web.config" />
     <Content Include="OldLogin.aspx" />
     <Content Include="LoginWithMasterPage.aspx" />
-    <Content Include="WebUserControl1.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About.aspx.cs">
@@ -132,13 +130,6 @@
     </Compile>
     <Compile Include="lecturer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LeftMenu.ascx.cs">
-      <DependentUpon>LeftMenu.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="LeftMenu.ascx.designer.cs">
-      <DependentUpon>LeftMenu.ascx</DependentUpon>
     </Compile>
     <Compile Include="Login_example.aspx.cs">
       <DependentUpon>Login_example.aspx</DependentUpon>
@@ -217,13 +208,6 @@
     </Compile>
     <Compile Include="UserControls\StudentsGrid.ascx.designer.cs">
       <DependentUpon>StudentsGrid.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="WebUserControl1.ascx.cs">
-      <DependentUpon>WebUserControl1.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebUserControl1.ascx.designer.cs">
-      <DependentUpon>WebUserControl1.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
