@@ -23,13 +23,15 @@
           <Property Name="courseName" Type="varchar" MaxLength="50" />
           <Property Name="lecturerID" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'WebProject.dbo.grades' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="grades">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="studentID" Type="int" />
           <Property Name="assignmentID" Type="int" />
           <Property Name="grade" Type="int" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="lecturers">
           <Key>
             <PropertyRef Name="lecturerID" />
@@ -47,12 +49,14 @@ warning 6013: The table/view 'WebProject.dbo.grades' does not have a primary key
           <Property Name="studentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="studentName" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'WebProject.dbo.studentsInCourse' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="studentsInCourse">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="studentID" Type="int" />
           <Property Name="courseID" Type="int" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -87,23 +91,61 @@ warning 6013: The table/view 'WebProject.dbo.studentsInCourse' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-error 6004: The table 'WebProject.dbo.grades' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_grades_assignments" />-->
-        <!--Errors Found During Generation:
-error 6004: The table 'WebProject.dbo.grades' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_grades_students" />-->
-        <!--Errors Found During Generation:
-error 6004: The table 'WebProject.dbo.studentsInCourse' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_studentsInCourse_courses" />-->
-        <!--Errors Found During Generation:
-error 6004: The table 'WebProject.dbo.studentsInCourse' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_studentsInCourse_students" />-->
+        <Association Name="FK_grades_assignments">
+          <End Role="assignments" Type="Self.assignments" Multiplicity="0..1" />
+          <End Role="grades" Type="Self.grades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="assignments">
+              <PropertyRef Name="assignmentID" />
+            </Principal>
+            <Dependent Role="grades">
+              <PropertyRef Name="assignmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_grades_students">
+          <End Role="students" Type="Self.students" Multiplicity="0..1" />
+          <End Role="grades" Type="Self.grades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="students">
+              <PropertyRef Name="studentID" />
+            </Principal>
+            <Dependent Role="grades">
+              <PropertyRef Name="studentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_studentsInCourse_courses">
+          <End Role="courses" Type="Self.courses" Multiplicity="0..1" />
+          <End Role="studentsInCourse" Type="Self.studentsInCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="courses">
+              <PropertyRef Name="courseID" />
+            </Principal>
+            <Dependent Role="studentsInCourse">
+              <PropertyRef Name="courseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_studentsInCourse_students">
+          <End Role="students" Type="Self.students" Multiplicity="0..1" />
+          <End Role="studentsInCourse" Type="Self.studentsInCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="students">
+              <PropertyRef Name="studentID" />
+            </Principal>
+            <Dependent Role="studentsInCourse">
+              <PropertyRef Name="studentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="WebProjectModelStoreContainer">
           <EntitySet Name="assignments" EntityType="Self.assignments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="courses" EntityType="Self.courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="grades" EntityType="Self.grades" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lecturers" EntityType="Self.lecturers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="students" EntityType="Self.students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="studentsInCourse" EntityType="Self.studentsInCourse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_assignments_courses" Association="Self.FK_assignments_courses">
             <End Role="courses" EntitySet="courses" />
@@ -112,6 +154,22 @@ error 6004: The table 'WebProject.dbo.studentsInCourse' is referenced by a relat
           <AssociationSet Name="FK_courses_lecturers" Association="Self.FK_courses_lecturers">
             <End Role="lecturers" EntitySet="lecturers" />
             <End Role="courses" EntitySet="courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_grades_assignments" Association="Self.FK_grades_assignments">
+            <End Role="assignments" EntitySet="assignments" />
+            <End Role="grades" EntitySet="grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_grades_students" Association="Self.FK_grades_students">
+            <End Role="students" EntitySet="students" />
+            <End Role="grades" EntitySet="grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_studentsInCourse_courses" Association="Self.FK_studentsInCourse_courses">
+            <End Role="courses" EntitySet="courses" />
+            <End Role="studentsInCourse" EntitySet="studentsInCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_studentsInCourse_students" Association="Self.FK_studentsInCourse_students">
+            <End Role="students" EntitySet="students" />
+            <End Role="studentsInCourse" EntitySet="studentsInCourse" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -128,8 +186,9 @@ error 6004: The table 'WebProject.dbo.studentsInCourse' is referenced by a relat
           <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="courseID" Type="Int32" />
           <NavigationProperty Name="cours" Relationship="Self.FK_assignments_courses" FromRole="assignments" ToRole="courses" />
+          <NavigationProperty Name="grades" Relationship="WebProjectModel.FK_grades_assignments" FromRole="assignment" ToRole="grade" />
         </EntityType>
-        <EntityType Name="cours">
+        <EntityType Name="courses">
           <Key>
             <PropertyRef Name="courseID" />
           </Key>
@@ -138,6 +197,7 @@ error 6004: The table 'WebProject.dbo.studentsInCourse' is referenced by a relat
           <Property Name="lecturerID" Type="Int32" />
           <NavigationProperty Name="assignments" Relationship="Self.FK_assignments_courses" FromRole="courses" ToRole="assignments" />
           <NavigationProperty Name="lecturer" Relationship="Self.FK_courses_lecturers" FromRole="courses" ToRole="lecturers" />
+          <NavigationProperty Name="studentsInCourses" Relationship="WebProjectModel.FK_studentsInCourse_courses" FromRole="cours" ToRole="studentsInCourse" />
         </EntityType>
         <EntityType Name="lecturer">
           <Key>
@@ -156,6 +216,8 @@ error 6004: The table 'WebProject.dbo.studentsInCourse' is referenced by a relat
           </Key>
           <Property Name="studentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="studentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="studentsInCourses" Relationship="WebProjectModel.FK_studentsInCourse_students" FromRole="student" ToRole="studentsInCourse" />
+          <NavigationProperty Name="grades" Relationship="WebProjectModel.FK_grades_students" FromRole="student" ToRole="grade" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -168,7 +230,7 @@ error 6004: The table 'WebProject.dbo.studentsInCourse' is referenced by a relat
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_assignments_courses">
-          <End Role="courses" Type="Self.cours" Multiplicity="0..1" />
+          <End Role="courses" Type="WebProjectModel.courses" Multiplicity="0..1" />
           <End Role="assignments" Type="Self.assignment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="courses">
@@ -181,7 +243,7 @@ error 6004: The table 'WebProject.dbo.studentsInCourse' is referenced by a relat
         </Association>
         <Association Name="FK_courses_lecturers">
           <End Role="lecturers" Type="Self.lecturer" Multiplicity="0..1" />
-          <End Role="courses" Type="Self.cours" Multiplicity="*" />
+          <End Role="courses" Type="WebProjectModel.courses" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="lecturers">
               <PropertyRef Name="lecturerID" />
@@ -193,7 +255,7 @@ error 6004: The table 'WebProject.dbo.studentsInCourse' is referenced by a relat
         </Association>
         <EntityContainer Name="WebProjectEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="assignments" EntityType="Self.assignment" />
-          <EntitySet Name="courses" EntityType="Self.cours" />
+          <EntitySet Name="courses" EntityType="WebProjectModel.courses" />
           <EntitySet Name="lecturers" EntityType="Self.lecturer" />
           <EntitySet Name="students" EntityType="Self.student" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
@@ -205,7 +267,94 @@ error 6004: The table 'WebProject.dbo.studentsInCourse' is referenced by a relat
             <End Role="lecturers" EntitySet="lecturers" />
             <End Role="courses" EntitySet="courses" />
           </AssociationSet>
+          <EntitySet Name="studentsInCourses" EntityType="WebProjectModel.studentsInCourse" />
+          <AssociationSet Name="FK_studentsInCourse_courses" Association="WebProjectModel.FK_studentsInCourse_courses">
+            <End Role="cours" EntitySet="courses" />
+            <End Role="studentsInCourse" EntitySet="studentsInCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_studentsInCourse_students" Association="WebProjectModel.FK_studentsInCourse_students">
+            <End Role="student" EntitySet="students" />
+            <End Role="studentsInCourse" EntitySet="studentsInCourses" />
+          </AssociationSet>
+          <EntitySet Name="grades" EntityType="WebProjectModel.grade" />
+          <AssociationSet Name="FK_grades_assignments" Association="WebProjectModel.FK_grades_assignments">
+            <End Role="assignment" EntitySet="assignments" />
+            <End Role="grade" EntitySet="grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_grades_students" Association="WebProjectModel.FK_grades_students">
+            <End Role="student" EntitySet="students" />
+            <End Role="grade" EntitySet="grades" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="studentsInCourse">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="studentID" Type="Int32" />
+          <Property Name="courseID" Type="Int32" />
+          <NavigationProperty Name="cours" Relationship="WebProjectModel.FK_studentsInCourse_courses" FromRole="studentsInCourse" ToRole="cours" />
+          <NavigationProperty Name="student" Relationship="WebProjectModel.FK_studentsInCourse_students" FromRole="studentsInCourse" ToRole="student" />
+        </EntityType>
+        <Association Name="FK_studentsInCourse_courses">
+          <End Type="WebProjectModel.courses" Role="cours" Multiplicity="0..1" />
+          <End Type="WebProjectModel.studentsInCourse" Role="studentsInCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cours">
+              <PropertyRef Name="courseID" />
+            </Principal>
+            <Dependent Role="studentsInCourse">
+              <PropertyRef Name="courseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_studentsInCourse_students">
+          <End Type="WebProjectModel.student" Role="student" Multiplicity="0..1" />
+          <End Type="WebProjectModel.studentsInCourse" Role="studentsInCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="studentID" />
+            </Principal>
+            <Dependent Role="studentsInCourse">
+              <PropertyRef Name="studentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="grade">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="studentID" Type="Int32" />
+          <Property Name="assignmentID" Type="Int32" />
+          <Property Name="grade1" Type="Int32" />
+          <NavigationProperty Name="assignment" Relationship="WebProjectModel.FK_grades_assignments" FromRole="grade" ToRole="assignment" />
+          <NavigationProperty Name="student" Relationship="WebProjectModel.FK_grades_students" FromRole="grade" ToRole="student" />
+        </EntityType>
+        <Association Name="FK_grades_assignments">
+          <End Type="WebProjectModel.assignment" Role="assignment" Multiplicity="0..1" />
+          <End Type="WebProjectModel.grade" Role="grade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="assignment">
+              <PropertyRef Name="assignmentID" />
+            </Principal>
+            <Dependent Role="grade">
+              <PropertyRef Name="assignmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_grades_students">
+          <End Type="WebProjectModel.student" Role="student" Multiplicity="0..1" />
+          <End Type="WebProjectModel.grade" Role="grade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="student">
+              <PropertyRef Name="studentID" />
+            </Principal>
+            <Dependent Role="grade">
+              <PropertyRef Name="studentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -224,7 +373,7 @@ error 6004: The table 'WebProject.dbo.studentsInCourse' is referenced by a relat
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="courses">
-            <EntityTypeMapping TypeName="WebProjectModel.cours">
+            <EntityTypeMapping TypeName="WebProjectModel.courses">
               <MappingFragment StoreEntitySet="courses">
                 <ScalarProperty Name="courseID" ColumnName="courseID" />
                 <ScalarProperty Name="courseName" ColumnName="courseName" />
@@ -259,6 +408,25 @@ error 6004: The table 'WebProject.dbo.studentsInCourse' is referenced by a relat
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="studentsInCourses">
+            <EntityTypeMapping TypeName="WebProjectModel.studentsInCourse">
+              <MappingFragment StoreEntitySet="studentsInCourse">
+                <ScalarProperty Name="courseID" ColumnName="courseID" />
+                <ScalarProperty Name="studentID" ColumnName="studentID" />
+                <ScalarProperty Name="index" ColumnName="index" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="grades">
+            <EntityTypeMapping TypeName="WebProjectModel.grade">
+              <MappingFragment StoreEntitySet="grades">
+                <ScalarProperty Name="grade1" ColumnName="grade" />
+                <ScalarProperty Name="assignmentID" ColumnName="assignmentID" />
+                <ScalarProperty Name="studentID" ColumnName="studentID" />
+                <ScalarProperty Name="index" ColumnName="index" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

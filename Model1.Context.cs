@@ -26,9 +26,11 @@ namespace WebProject
         }
     
         public virtual DbSet<assignment> assignments { get; set; }
-        public virtual DbSet<cours> courses { get; set; }
+        public virtual DbSet<courses> courses { get; set; }
         public virtual DbSet<lecturer> lecturers { get; set; }
         public virtual DbSet<student> students { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<studentsInCourse> studentsInCourses { get; set; }
+        public virtual DbSet<grade> grades { get; set; }
     }
 }

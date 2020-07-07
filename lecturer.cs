@@ -17,7 +17,7 @@ namespace WebProject
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public lecturer()
         {
-            this.courses = new HashSet<cours>();
+            this.courses = new HashSet<courses>();
         }
     
         public int lecturerID { get; set; }
@@ -27,6 +27,6 @@ namespace WebProject
         public string password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<cours> courses { get; set; }
+        public virtual ICollection<courses> courses { get; set; }
     }
 }

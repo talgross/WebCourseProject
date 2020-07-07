@@ -6,12 +6,18 @@
     <edmx:Diagrams>
       <Diagram DiagramId="c255972ece654359bb4c6c3f9be89fcf" Name="Diagram1">
         <EntityTypeShape EntityType="WebProjectModel.assignment" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebProjectModel.cours" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebProjectModel.courses" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="WebProjectModel.lecturer" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="WebProjectModel.student" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WebProjectModel.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="WebProjectModel.FK_assignments_courses" ManuallyRouted="false" />
         <AssociationConnector Association="WebProjectModel.FK_courses_lecturers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="WebProjectModel.studentsInCourse" Width="1.5" PointX="5.25" PointY="4.625" />
+        <AssociationConnector Association="WebProjectModel.FK_studentsInCourse_courses" />
+        <AssociationConnector Association="WebProjectModel.FK_studentsInCourse_students" />
+        <EntityTypeShape EntityType="WebProjectModel.grade" Width="1.5" PointX="7.5" PointY="2.625" />
+        <AssociationConnector Association="WebProjectModel.FK_grades_assignments" />
+        <AssociationConnector Association="WebProjectModel.FK_grades_students" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

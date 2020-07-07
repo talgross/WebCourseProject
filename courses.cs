@@ -12,12 +12,13 @@ namespace WebProject
     using System;
     using System.Collections.Generic;
     
-    public partial class cours
+    public partial class courses
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public cours()
+        public courses()
         {
             this.assignments = new HashSet<assignment>();
+            this.studentsInCourses = new HashSet<studentsInCourse>();
         }
     
         public int courseID { get; set; }
@@ -27,5 +28,7 @@ namespace WebProject
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<assignment> assignments { get; set; }
         public virtual lecturer lecturer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<studentsInCourse> studentsInCourses { get; set; }
     }
 }

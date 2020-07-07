@@ -14,7 +14,19 @@ namespace WebProject
     
     public partial class student
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public student()
+        {
+            this.studentsInCourses = new HashSet<studentsInCourse>();
+            this.grades = new HashSet<grade>();
+        }
+    
         public int studentID { get; set; }
         public string studentName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<studentsInCourse> studentsInCourses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<grade> grades { get; set; }
     }
 }

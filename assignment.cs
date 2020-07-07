@@ -14,12 +14,20 @@ namespace WebProject
     
     public partial class assignment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public assignment()
+        {
+            this.grades = new HashSet<grade>();
+        }
+    
         public int assignmentID { get; set; }
         public string assignmentName { get; set; }
         public System.DateTime startDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<int> courseID { get; set; }
     
-        public virtual cours cours { get; set; }
+        public virtual courses cours { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<grade> grades { get; set; }
     }
 }
