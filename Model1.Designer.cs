@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Program Files\Oracle\Virtual Machines\VM shared folder\Studies\שנה 4\WEB\lab8 - Copy\Model1.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Program Files\Oracle\Virtual Machines\VM shared folder\Studies\שנה 4\WEB\WebCourseProject_\Model1.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

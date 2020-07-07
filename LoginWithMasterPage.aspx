@@ -12,14 +12,14 @@
                 <div class="form-group">
                     <label>Email address</label>                    
                     <asp:TextBox runat="server" ID="user" CssClass="form-control ng-pristine ng-untouched ng-valid ng-empty" 
-                        placeholder="Enter email">user</asp:TextBox>
+                        placeholder="Enter email">Alex1</asp:TextBox>
                     <asp:RequiredFieldValidator runat="server" ControlToValidate="user" ErrorMessage="Required field" ForeColor="Red"></asp:RequiredFieldValidator>
                     <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div class="form-group mh-80">
                     <label for="exampleInputPassword1">Password</label>
                     <asp:TextBox runat="server" ID="password" CssClass="form-control ng-pristine ng-untouched ng-valid ng-empty" TextMode="Password"></asp:TextBox>
-                    <asp:RequiredFieldValidator runat="server" ControlToValidate="password" ErrorMessage="Required field" ForeColor="Red">123</asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator runat="server" ControlToValidate="password" ErrorMessage="Required field" ForeColor="Red">Incorrect Password</asp:RequiredFieldValidator>
                 </div>
                 <div>
                     <asp:Label runat="server" ID="lblError" ForeColor="Red"></asp:Label>

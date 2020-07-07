@@ -44,13 +44,18 @@ namespace WebProject
             string enteredUsername = this.user.Text;
             string enteredPassword = this.password.Text;
             bool loginSuccessful = false;
-            foreach (var existingUser in users)
+            using (var db = new WebProjectEntities())
             {
-                if (existingUser.userName.Equals(enteredUsername) && existingUser.password.Equals(enteredPassword))
+
+                var lecturers = db.lecturers;
+
+                foreach (var lecturer in lecturers)
                 {
-                    // do stuff
-                    loginSuccessful = true;
-                    Response.Redirect("SecondPageWithMasterPage.aspx");
+                    if(lecturer.userName.Equals(enteredUsername) && lecturer.password.Equals(enteredPassword))
+                    {
+                        loginSuccessful = true;
+                        Response.Redirect(nameof(WebProject.SecondPageWithMasterPage) + ".aspx");
+                    }
                 }
             }
 

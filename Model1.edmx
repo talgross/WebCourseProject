@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WebProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WebProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="assignments">
           <Key>
             <PropertyRef Name="assignmentID" />
@@ -35,10 +35,10 @@ warning 6013: The table/view 'WebProject.dbo.grades' does not have a primary key
             <PropertyRef Name="lecturerID" />
           </Key>
           <Property Name="lecturerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="lecturerFirstName" Type="nchar" MaxLength="10" />
+          <Property Name="lecturerFirstName" Type="varchar" MaxLength="50" />
           <Property Name="lecturerLastName" Type="varchar" MaxLength="50" />
-          <Property Name="userName" Type="nchar" MaxLength="10" />
-          <Property Name="password" Type="nchar" MaxLength="10" />
+          <Property Name="userName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="students">
           <Key>
@@ -114,8 +114,7 @@ error 6004: The table 'WebProject.dbo.studentsInCourse' is referenced by a relat
             <End Role="courses" EntitySet="courses" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WebProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -145,10 +144,10 @@ error 6004: The table 'WebProject.dbo.studentsInCourse' is referenced by a relat
             <PropertyRef Name="lecturerID" />
           </Key>
           <Property Name="lecturerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="lecturerFirstName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="lecturerFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lecturerLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="userName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="courses" Relationship="Self.FK_courses_lecturers" FromRole="lecturers" ToRole="courses" />
         </EntityType>
         <EntityType Name="student">

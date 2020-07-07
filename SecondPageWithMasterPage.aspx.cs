@@ -22,10 +22,8 @@ namespace WebProject
                     var courseAssignments = db.assignments.Where(a => a.courseID == course.courseID);
                     foreach (var assignment in courseAssignments)
                     {
-
-                        var assingmentTreeNode = new TreeNode() { Text = assignment.assignmentName };
+                        var assingmentTreeNode = new AssignmentTreeNodeView(assignment.assignmentID, assignment.assignmentName, course.courseID, course.courseName);
                         courseTreeNode.ChildNodes.Add(assingmentTreeNode);
-
                     }
                     treeView.Nodes.Add(courseTreeNode);
                 }
@@ -39,6 +37,24 @@ namespace WebProject
         protected void hLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
+        }
+
+        internal class AssignmentTreeNodeView : TreeNode
+        {
+            public AssignmentTreeNodeView(int assignmentID, string assignmentName, int courseID, string courseName)
+            {
+                AssignmentID = assignmentID;
+                AssignmentName = assignmentName;
+
+                this.Text = this.AssignmentName; // Set the text of the node
+                CourseID = courseID;
+                CourseName = courseName;
+            }
+
+            public int AssignmentID { get; set; }
+            public string AssignmentName { get; set; }
+            public int CourseID { get; set; }
+            public string CourseName { get; set; }
         }
     }
 }
