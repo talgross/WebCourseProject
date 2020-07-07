@@ -10,7 +10,7 @@
         var app = angular.module('app', [])
             .controller('usersCtrl', function($scope,$http) {
 
-                $scope.SelectedNodeChanged = function (user) {
+                $scope.something = function (user) {
 
                 }
 

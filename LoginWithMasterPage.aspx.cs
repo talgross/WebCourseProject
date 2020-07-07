@@ -1,25 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebProject
 {
     public partial class WebForm2 : System.Web.UI.Page
     {
-        struct predefinedUserData
-        {
-            public string userName;
-            public string password;
-        }
 
-        List<predefinedUserData> users = new List<predefinedUserData>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            users.Add(new predefinedUserData() { userName = "user", password = "123" });
-            users.Add(new predefinedUserData() { userName = "user2", password = "1234" });
 
         }
 
