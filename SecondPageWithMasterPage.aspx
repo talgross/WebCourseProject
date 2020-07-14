@@ -8,13 +8,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script>
         var app = angular.module('app', [])
-            .controller('usersCtrl', function($scope,$http) {
+            .controller('usersCtrl', function ($scope, $http) {
 
-                $scope.something = function (user) {
+                $scope.something = function () {
 
                 }
 
-}
+            });
     </script>
     <asp:Panel runat="server" ID="SecondPage">
 
@@ -29,7 +29,7 @@
                     <%--left menu--%>
                     <%--<uc2:LeftMenu runat="server" ID="LeftMenu" />--%>
                     <div>
-                        <asp:TreeView ID="treeView" runat="server" NodeStyle-CssClass="list-group-item-text" BorderStyle="Ridge" BorderColor="AliceBlue" />
+                        <asp:TreeView ID="treeView" runat="server" OnSelectedNodeChanged="SelectedNodeChanged" NodeStyle-CssClass="list-group-item-text" BorderStyle="Ridge" BorderColor="AliceBlue" />
                     </div>
                 </div>
                 <div class="col-md-9">

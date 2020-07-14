@@ -13,30 +13,12 @@ namespace WebProject.UserControls {
     public partial class StudentsGrid {
         
         /// <summary>
-        /// Content1 control.
+        /// gridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Content1;
-        
-        /// <summary>
-        /// Content2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Content2;
-        
-        /// <summary>
-        /// gvData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvData;
+        public global::System.Web.UI.WebControls.GridView gridView;
     }
 }

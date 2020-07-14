@@ -41,6 +41,7 @@ namespace WebProject
                     if(lecturer.userName.Equals(enteredUsername) && lecturer.password.Equals(enteredPassword))
                     {
                         loginSuccessful = true;
+                        Site1.loggedInLecturer = lecturer;  // Save the logged in lecturer
                         Response.Redirect(nameof(WebProject.SecondPageWithMasterPage) + ".aspx");
                     }
                 }

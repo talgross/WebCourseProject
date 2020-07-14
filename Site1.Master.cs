@@ -9,6 +9,7 @@ namespace WebProject
 {
     public partial class Site1 : System.Web.UI.MasterPage
     {
+        internal static lecturer loggedInLecturer { get; set; } = null;
         protected void Page_Load(object sender, EventArgs e)
         {
 
