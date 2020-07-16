@@ -3,7 +3,6 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web.UI.WebControls;
-using static WebProject.CustomTreeView;
 using static WebProject.UserControls.StudentsGrid;
 
 namespace WebProject
@@ -50,10 +49,27 @@ namespace WebProject
                 int parentEndIndex = selectedNode.ValuePath.IndexOf('/');
                 var course = db.courses.Where(c => c.courseName == selectedNode.ValuePath.Substring(0, parentEndIndex)).ToList()[0];
                 var studentsInCourse = db.studentsInCourses.Where(s => s.courseID == course.courseID).ToList();
+                var assignment = db.assignments.Where(a => a.assignmentName == selectedNode.Text && a.courseID == course.courseID).ToList().First();
+                var grades = db.grades.Where(g => g.assignmentID == assignment.assignmentID).ToList();
+                //var students = db.students.Where(s => studentsInCourse.Any(sic => sic.studentID == s.studentID)).ToList();
+                var students = db.students.ToList();
+
+
 
                 DataTable dt = new DataTable();
                 dt.Columns.AddRange(new DataColumn[3] { new DataColumn("StudentID"), new DataColumn("StudentName"), new DataColumn("Grade") });
-                dt.Rows.Add(new gridRow() { StudentID = 1, StudentName = "me", Grade = 50 });
+                foreach (var student in studentsInCourse)
+                {
+                    //var name = (course.studentsInCourses.First(s => s.studentID == student.studentID));
+                    var row = new GridRow()
+                    {
+                        StudentID = student.studentID?? 0 ,
+                        StudentName = students.Where(s => s.studentID == student.studentID).First().studentName,
+                        Grade = grades.Where(g => g.studentID == student.studentID).First().grade1 ?? 0
+                    };
+                    dt.Rows.Add(row.StudentID, row.StudentName, row.Grade);
+                }
+                
                 ViewState["data"] = dt;
 
                 StudentsGrid.gridView.DataSource = (DataTable)ViewState["data"];
@@ -87,5 +103,27 @@ namespace WebProject
         //    public int CourseID { get; set; }
         //    public string CourseName { get; set; }
         //}
+
+        //foreach (var c in db.courses.ToList())
+        //{
+        //    foreach (var a in db.assignments)
+        //    {
+        //        if(a.courseID == c.courseID)
+        //        {
+        //            foreach (var s in db.studentsInCourses)
+        //            {
+        //                if(s.courseID == c.courseID)
+        //                {
+        //                    var gradeline = new grade() { assignmentID = a.assignmentID, studentID = s.studentID, grade1 = 0 };
+
+
+        //                    db.grades.Add(gradeline);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+        //db.SaveChanges();
     }
 }

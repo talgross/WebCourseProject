@@ -45,7 +45,7 @@ namespace WebProject.UserControls
 
                 DataTable dt = new DataTable();
                 dt.Columns.AddRange(new DataColumn[3] { new DataColumn("StudentID"), new DataColumn("StudentName"), new DataColumn("Grade")});
-                dt.Rows.Add(new gridRow() { StudentID = 1, StudentName = "me", Grade = 50 });
+                dt.Rows.Add(new GridRow() { StudentID = 1, StudentName = "me", Grade = 50 });
                 ViewState["data"] = dt;
 
                 this.gridView.DataSource = (DataTable)ViewState["data"];
@@ -57,7 +57,7 @@ namespace WebProject.UserControls
             }
         }
 
-        public class gridRow
+        public class GridRow 
         {
             public int StudentID { get; set; }
             public string StudentName { get; set; }

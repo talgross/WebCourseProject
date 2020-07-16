@@ -26,16 +26,15 @@
         <div class="container-fluid" style="margin-left: 0px">
             <div class="row">
                 <div class="col-md-2 list-group">
-                    <%--left menu--%>
-                    <%--<uc2:LeftMenu runat="server" ID="LeftMenu" />--%>
                     <div>
-                        <asp:TreeView ID="treeView" runat="server" OnSelectedNodeChanged="SelectedNodeChanged" NodeStyle-CssClass="list-group-item-text" BorderStyle="Ridge" BorderColor="AliceBlue" />
+                        <asp:TreeView ID="treeView" runat="server" OnSelectedNodeChanged="SelectedNodeChanged" NodeStyle-CssClass="list-group-item-text" BorderStyle="Ridge" BorderColor="AliceBlue" ShowLines="true" />
                     </div>
                 </div>
                 <div class="col-md-9">
                     <uc3:StudentsGrid runat="server" ID="StudentsGrid" />
                 </div>
             </div>
+
 
             <%--            <div>
                 <div style="float:left;width:200px;border:1px solid silver">

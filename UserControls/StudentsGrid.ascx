@@ -29,12 +29,12 @@
             display:none;
         }
 
-        tr:hover .rem-btn{
+        /*tr:hover .rem-btn{
             display:inline-block;
-        }
-        td{
+        }*/
+        /*td{
             height:54px;
-        }
+        }*/
     </style>
     <script>
         var app = angular.module('app', [])
@@ -163,13 +163,20 @@
         <div class="table-responsive">
                 <asp:GridView runat="server" ID="gridView"
                     CssClass="table table-sm table-hover table-bordered" 
-                     AllowSorting="true" PagerStyle-CssClass="pgr" 
+                     AllowSorting="false" PagerStyle-CssClass="pgr" 
                      AutoGenerateColumns="false" AllowPaging="True" PageSize="20"><%--OnPageIndexChanging="gvData_PageIndexChanging" OnSorting="gvData_Sorting" --%>
                     <Columns>
-                        <asp:ButtonField ButtonType="Button" CommandName="userModal()" />
-                        <asp:BoundField DataField="StudentID" HeaderText="StudentID" SortExpression="Id" />
-                        <asp:BoundField DataField="StudentName" HeaderText="StudentName" SortExpression="User" />
-                        <asp:BoundField DataField="Grade" HeaderText="Grade" SortExpression="Ordered" DataFormatString="{0:#,0.######}" />
+                        <asp:BoundField DataField="StudentID" ItemStyle-Width="20%" HeaderText="StudentID" SortExpression="Id" />
+
+                        <asp:BoundField DataField="StudentName" ItemStyle-Width="15%" HeaderText="StudentName" SortExpression="User" />
+                        <asp:BoundField DataField="Grade" HeaderText="Grade" ItemStyle-Width="15px" ItemStyle-HorizontalAlign="Center" SortExpression="Ordered" DataFormatString="{0:#,0.######}" />
+                        <%--<asp:ButtonField ButtonType="Button" ControlStyle-CssClass="btn btn-info" Text="Changed Grade" CommandName="userModal()" />--%>
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <button class="btn btn-info" ng-click="userModal()">Changed Grade</button>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
                  <%--       <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" DataFormatString="${0:#,0.00}" />
                         <asp:BoundField DataField="CostD" HeaderText="Cost" SortExpression="Cost" DataFormatString="${0:#,0.00}" />
                         <asp:BoundField DataField="Date" HeaderText="Date" SortExpression="Date" DataFormatString="{0:dd/MM/yy HH:mm:ss}" />--%>
