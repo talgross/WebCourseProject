@@ -94,8 +94,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <Content Include="SecondPageWithMasterPage.aspx" />
     <Content Include="Menu.ascx" />
+    <Content Include="SecondPageWithMasterPage.aspx" />
     <Content Include="UserControls\StudentsGrid.ascx" />
     <Content Include="Web.config" />
     <Content Include="LoginWithMasterPage.aspx" />

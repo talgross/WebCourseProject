@@ -79,16 +79,16 @@
 
                 // open modal
                 $scope.userModal = function (user) {
-                    if($scope.curUser!=user.Id)return;
-                    if(arguments.length==0){  
-                      $scope.selectedUser = {
-                          StudentID: 0,
-                            Mail:"",
-                            Password:"",
-                            Address:""
-                        }
-                    }else
-                        $scope.selectedUser = angular.copy(user);
+                    //if($scope.curUser!=user.Id)return;
+                    //if(arguments.length==0){  
+                    //  $scope.selectedUser = {
+                    //      StudentID: 0,
+                    //        Mail:"",
+                    //        Password:"",
+                    //        Address:""
+                    //    }
+                    //}else
+                    //    $scope.selectedUser = angular.copy(user);
 
                     $("#editUser").modal("show");
                 }
