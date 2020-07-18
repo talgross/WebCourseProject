@@ -96,6 +96,7 @@
     <Content Include="UserControls\StudentsGrid.ascx" />
     <Content Include="Web.config" />
     <Content Include="LoginWithMasterPage.aspx" />
+    <Content Include="WebService1.asmx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About.aspx.cs">
@@ -190,6 +191,10 @@
     </Compile>
     <Compile Include="UserControls\StudentsGrid.ascx.designer.cs">
       <DependentUpon>StudentsGrid.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WebService1.asmx.cs">
+      <DependentUpon>WebService1.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

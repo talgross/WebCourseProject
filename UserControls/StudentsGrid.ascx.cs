@@ -24,6 +24,7 @@ namespace WebProject.UserControls
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["lecturerID"] = Site1.loggedInLecturer.lecturerID;
             //if (!IsPostBack)
             //{
             //    var s = GridData();
