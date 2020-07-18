@@ -79,17 +79,16 @@
 
                 // open modal
                 $scope.userModal = function (user) {
-                    //if($scope.curUser!=user.Id)return;
-                    console.log("BLABLA");
-                    //if(arguments.length==0){
-                    //    $scope.selectedUser = {
-                    //        Id: 0,
-                    //        Mail:"",
-                    //        Password:"",
-                    //        Address:""
-                    //    }
-                    //}else
-                    //    $scope.selectedUser = angular.copy(user);
+                    if($scope.curUser!=user.Id)return;
+                    if(arguments.length==0){  
+                      $scope.selectedUser = {
+                          StudentID: 0,
+                            Mail:"",
+                            Password:"",
+                            Address:""
+                        }
+                    }else
+                        $scope.selectedUser = angular.copy(user);
 
                     $("#editUser").modal("show");
                 }
@@ -222,19 +221,24 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="control-label">Email</label>
+                        <label class="control-label">StudentID</label>
                         <input class="form-control" type="text" ng-model="selectedUser.Email" />
                     </div>
                     <div class="form-group">
-                        <label class="control-label">Password</label>
+                        <label class="control-label">StudentName</label>
                         <input class="form-control" type="text" ng-model="selectedUser.Password" />
                     </div>
                     <div class="form-group">
-                        <label class="control-label">Address</label>
+                        <label class="control-label">Grade</label>
                         <input class="form-control" type="text" ng-model="selectedUser.Address" />
-                    </div>
-                </div>
-                <div class="modal-footer">
+                                                <button class="btn btn-success" style="width:auto" type="submit" ng-model="selectedUser.Address" >Submit Grade</button>
+
+                        
+                    
+                    <div class="form-group">
+                        <label class="control-label">Submitted Assignment</label>
+                        <iframe class="form-control"  ng-model="selectedUser.Address" />
+                    </div>v class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Canel</button>
                     <button type="button" class="btn btn-success" ng-click="save()" ng-show="curUser==selectedUser.Id">Save</button>
                 </div>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using iTextSharp.text.pdf;
+using System;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -54,8 +55,6 @@ namespace WebProject
                 //var students = db.students.Where(s => studentsInCourse.Any(sic => sic.studentID == s.studentID)).ToList();
                 var students = db.students.ToList();
 
-
-
                 DataTable dt = new DataTable();
                 dt.Columns.AddRange(new DataColumn[3] { new DataColumn("StudentID"), new DataColumn("StudentName"), new DataColumn("Grade") });
                 foreach (var student in studentsInCourse)
@@ -63,13 +62,13 @@ namespace WebProject
                     //var name = (course.studentsInCourses.First(s => s.studentID == student.studentID));
                     var row = new GridRow()
                     {
-                        StudentID = student.studentID?? 0 ,
+                        StudentID = student.studentID ?? 0,
                         StudentName = students.Where(s => s.studentID == student.studentID).First().studentName,
                         Grade = grades.Where(g => g.studentID == student.studentID).First().grade1 ?? 0
                     };
                     dt.Rows.Add(row.StudentID, row.StudentName, row.Grade);
                 }
-                
+
                 ViewState["data"] = dt;
 
                 StudentsGrid.gridView.DataSource = (DataTable)ViewState["data"];
@@ -104,26 +103,34 @@ namespace WebProject
         //    public string CourseName { get; set; }
         //}
 
+
         //foreach (var c in db.courses.ToList())
         //{
         //    foreach (var a in db.assignments)
         //    {
-        //        if(a.courseID == c.courseID)
+        //        if (a.courseID == c.courseID)
         //        {
         //            foreach (var s in db.studentsInCourses)
         //            {
-        //                if(s.courseID == c.courseID)
+        //                if (s.courseID == c.courseID)
         //                {
-        //                    var gradeline = new grade() { assignmentID = a.assignmentID, studentID = s.studentID, grade1 = 0 };
+        //                    using (var file = new PdfReader(@"D:\Program Files\Oracle\Virtual Machines\VM shared folder\Studies\שנה 4\WEB\FakeAssignment.pdf"))
+        //                    {
+        //                        var page = file.GetPageContent(1);
+        //                        var gradeline = new grade() { assignmentID = a.assignmentID, studentID = s.studentID, grade1 = 0, submittedAssignment = page };
+        //                        db.grades.Add(gradeline);
 
-
-        //                    db.grades.Add(gradeline);
+        //                    }
         //                }
+        //                //var gradeline = new grade() { assignmentID = a.assignmentID, studentID = s.studentID, grade1 = 0 , submittedAssignment};
+
+
+        //                //db.grades.Add(gradeline);
         //            }
         //        }
         //    }
+        //    db.SaveChanges();
         //}
 
-        //db.SaveChanges();
     }
 }

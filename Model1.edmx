@@ -31,6 +31,7 @@
           <Property Name="studentID" Type="int" />
           <Property Name="assignmentID" Type="int" />
           <Property Name="grade" Type="int" />
+          <Property Name="submittedAssignment" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="lecturers">
           <Key>
@@ -330,6 +331,7 @@
           <Property Name="grade1" Type="Int32" />
           <NavigationProperty Name="assignment" Relationship="WebProjectModel.FK_grades_assignments" FromRole="grade" ToRole="assignment" />
           <NavigationProperty Name="student" Relationship="WebProjectModel.FK_grades_students" FromRole="grade" ToRole="student" />
+          <Property Name="submittedAssignment" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_grades_assignments">
           <End Type="WebProjectModel.assignment" Role="assignment" Multiplicity="0..1" />
@@ -423,6 +425,7 @@
           <EntitySetMapping Name="grades">
             <EntityTypeMapping TypeName="WebProjectModel.grade">
               <MappingFragment StoreEntitySet="grades">
+                <ScalarProperty Name="submittedAssignment" ColumnName="submittedAssignment" />
                 <ScalarProperty Name="grade1" ColumnName="grade" />
                 <ScalarProperty Name="assignmentID" ColumnName="assignmentID" />
                 <ScalarProperty Name="studentID" ColumnName="studentID" />
