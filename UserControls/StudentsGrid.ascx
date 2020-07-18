@@ -174,7 +174,7 @@
                     <%--<asp:ButtonField ButtonType="Button" ControlStyle-CssClass="btn btn-info" Text="Changed Grade" CommandName="userModal()" />--%>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <button class="btn btn-info" ng-click="userModal()">Changed Grade</button>
+                            <button type="button" class="btn btn-info" ng-click="userModal()">Changed Grade</button>
                         </ItemTemplate>
                     </asp:TemplateField>
 
