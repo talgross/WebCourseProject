@@ -18,11 +18,6 @@ namespace WebProject
             }
         }
 
-        protected void register_Click(object sender, EventArgs e)
-        {
-            ShowLogin(false);
-        }
-
         protected void loginLink_Click(object sender, EventArgs e)
         {
             ShowLogin(true);
@@ -37,7 +32,6 @@ namespace WebProject
         {
             string enteredUsername = this.user.Text;
             string enteredPassword = this.password.Text;
-            bool loginSuccessful = false;
             using (var db = new WebProjectEntities())
             {
 
@@ -47,7 +41,6 @@ namespace WebProject
                 {
                     if(lecturer.userName.Equals(enteredUsername) && lecturer.password.Equals(enteredPassword))
                     {
-                        loginSuccessful = true;
                         Site1.loggedInLecturer = lecturer;  // Save the logged in lecturer
                         Response.Redirect(nameof(WebProject.SecondPageWithMasterPage) + ".aspx");
                         return;

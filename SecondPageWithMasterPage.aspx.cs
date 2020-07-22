@@ -1,7 +1,5 @@
-﻿using iTextSharp.text.pdf;
-using System;
+﻿using System;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.Web.UI.WebControls;
 using static WebProject.UserControls.StudentsGrid;
@@ -12,14 +10,16 @@ namespace WebProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Site1.loggedInLecturer == null)
+            if(Site1.loggedInLecturer == null)  // Redirect to login page if not user is logged in
             {
                 Response.Redirect("LoginWithMasterPage.aspx");
             }
+
             if (!IsPostBack)
             {
                 Site1.MainGridView = StudentsGrid.gridView;
 
+                // Create the treeview representing the Courses and their Assignments
                 using (var db = new WebProjectEntities())
                 {
 
@@ -42,6 +42,7 @@ namespace WebProject
                     }
                 }
 
+                // Restore the previously selected assignment node if one exists
                 if (Site1.SelectedTreeNode != null)
                 {
                     foreach (TreeNode courseNode in treeView.Nodes)
@@ -59,12 +60,15 @@ namespace WebProject
             }
             else
             {
-                StudentsGrid.gridView.DataSource = (DataTable)ViewState["data"];
+                StudentsGrid.gridView.DataSource = (DataTable)ViewState["data"];    // restore the state in case of postback
             }
-
-
         }
 
+        /// <summary>
+        /// When an assignment tree node is selected, load the relevant grades to the gridView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void SelectedNodeChanged(object sender, EventArgs e)
         {
             var selectedNode = treeView.SelectedNode;
@@ -76,14 +80,12 @@ namespace WebProject
                 var studentsInCourse = db.studentsInCourses.Where(s => s.courseID == course.courseID).ToList();
                 var assignment = db.assignments.Where(a => a.assignmentName == selectedNode.Text && a.courseID == course.courseID).ToList().First();
                 var grades = db.grades.Where(g => g.assignmentID == assignment.assignmentID).ToList();
-                //var students = db.students.Where(s => studentsInCourse.Any(sic => sic.studentID == s.studentID)).ToList();
                 var students = db.students.ToList();
 
                 DataTable dt = new DataTable();
                 dt.Columns.AddRange(new DataColumn[4] { new DataColumn("AssignmentID"), new DataColumn("StudentID"), new DataColumn("StudentName"), new DataColumn("Grade") });
                 foreach (var student in studentsInCourse)
                 {
-                    //var name = (course.studentsInCourses.First(s => s.studentID == student.studentID));
                     var row = new GridRow()
                     {
                         AssignmentID = assignment.assignmentID,
@@ -94,42 +96,15 @@ namespace WebProject
                     dt.Rows.Add(row.AssignmentID, row.StudentID, row.StudentName, row.Grade);
                 }
 
-                ViewState["data"] = dt;
-                Site1.SelectedTreeNode = selectedNode;
+                ViewState["data"] = dt; // Retain the state for postbacks
+                Site1.SelectedTreeNode = selectedNode;  // retain the selected node for resoration 
 
                 StudentsGrid.gridView.DataSource = (DataTable)ViewState["data"];
                 StudentsGrid.gridView.DataBind();
-                //var studentsInfo = db.students.Where(s => studentsInCourse.Contains(s.studentID)
-                //    db.students.Where(s1 =>
-                //{
-                //    var inCourse = db.studentsInCourses.Where(s => s.studentID == s1.studentID && s.courseID == assignmentNode.CourseID);
-                //});
             }
         }
-        protected void hLogout_Click(object sender, EventArgs e)
-        {
-            Session.Clear();
-        }
 
-        //internal class AssignmentTreeNodeView : TreeNode
-        //{
-        //    public AssignmentTreeNodeView(int assignmentID, string assignmentName, int courseID, string courseName)
-        //    {
-        //        AssignmentID = assignmentID;
-        //        AssignmentName = assignmentName;
-
-        //        this.Text = this.AssignmentName; // Set the text of the node
-        //        CourseID = courseID;
-        //        CourseName = courseName;
-        //    }
-
-        //    public int AssignmentID { get; set; }
-        //    public string AssignmentName { get; set; }
-        //    public int CourseID { get; set; }
-        //    public string CourseName { get; set; }
-        //}
-
-
+        // CODE used for inserting dummy data entries
         //foreach (var c in db.courses.ToList())
         //{
         //    foreach (var a in db.assignments)

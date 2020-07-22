@@ -28,16 +28,11 @@
             </div>
             <div class="modal-footer">
                 <div style="width: 100%">
-                    <div style="float: left; padding-top: 20px">
-                        <asp:LinkButton runat="server" ID="register" Text="new user registration" OnClick="register_Click"></asp:LinkButton>
-                    </div>
                     <div style="float: right">
                         <asp:Button runat="server" ID="btnLogin" Text="Submit" OnClick="btnLogin_Click" CssClass="btn btn-info" />
                     </div>
                 </div>
             </div>
         </div>
-
     </asp:Panel>
-
 </asp:Content>

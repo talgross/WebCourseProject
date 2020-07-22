@@ -15,7 +15,6 @@
                 $scope.service = "WebService1.asmx/";
 
                 angular.element(document).ready(function () {
-                    //$scope.getUsers();GetAssignmentGrade
                     $http.get("WebService1.asmx/GetAssignmentGrade", {
                         reponseType: 'arraybuffer'
                     })
@@ -51,25 +50,12 @@
 
                 $scope.saveGrade = function () {
                     var user = angular.copy($scope.grade);
-                    //var isNew = $scope.selectedUser.Id == 0;
                     var url = $scope.service + "SaveGrade";
                     var data = { data: user };
                     $http.post(url, data, null).then(
-                        function (d) { // success
-                            //if (isNew) {
-                            //    user.Id = d.data.d;
-                            //    $scope.users.push(user);
-                            //} else {
-                            //    $scope.users.map((x, i) => {
-                            //        if (x.Id == d.data.d) {
-                            //            $scope.users[i] = user;
-                            //        }
-                            //    });
-                            //}
+                        function (d) {
                             $scope.safeApply();
                             angular.element(document.location = "SecondPageWithMasterPage.aspx");
-                            //$("#changeGradeModal").modal("hide");
-
                         },
                         function (e) { // error
                             console.log(e);
@@ -77,7 +63,6 @@
                     )
                 }
 
-                //
                 $scope.safeApply = function (fn) {
                     var phase = this.$root.$$phase;
                     if (phase == '$apply' || phase == '$digest') {
@@ -102,7 +87,7 @@
                             <div class="w3l-heading">
                                 <h2 class="w3ls_head">Assignment Name</h2>
                             </div>
-                            <%--                            <h4 class="modal-title"><span ng-bind="selectedUser.Id>0 ? 'Update' : 'New'"></span>User <span class="text-info" ng-show="selectedUser.Id>0" ng-bind="selectedUser.Id"></span></h4>--%>
+                            <%----%>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
@@ -120,8 +105,8 @@
 
                             </div>
 
-                            <%--                    <button type="button" class="btn btn-danger" data-dismiss="modal">Canel</button>--%>
-                            <%--<button type="button" class="btn btn-success" ng-click="save()" ng-show="curUser==selectedUser.Id">Save</button>--%>
+                            <%----%>
+                            <%----%>
                         </div>
                         </div>
                     </ContentTemplate>
@@ -129,40 +114,4 @@
             </div>
         </div>
     </div>
-
-    <%--    <div class="contact">
-        <div class="container">
-            <div class="w3l-heading">
-                <h2 class="w3ls_head">Mail Us</h2>
-            </div>
-            <div class="contact-agileinfo">
-                <div class="col-md-7 contact-right">
-                    <form action="mailto:help@DXdesign.com" method="post">
-                        <input type="text" name="Name" placeholder="Name" required="" />
-                        <input type="text" class="email" name="Email" placeholder="Email" required="" />
-                        <input type="text" name="Phone no" placeholder="Phone" required="" />
-                        <textarea name="Message" placeholder="Message" required=""></textarea>
-                        <input type="submit" value="SUBMIT" />
-                    </form>
-                </div>
-                <br />
-                <br />
-                <div class="col-md-5 contact-left">
-                    <div class="address">
-                        <h5>Address:</h5>
-                        <p><i class="glyphicon glyphicon-home"></i>Karmiel , Israel </p>
-                    </div>
-
-                    <div class="address">
-                        <h5>Email:</h5>
-                        <p><i class="glyphicon glyphicon-envelope"></i><a href="mailto:Contact@DXdesign.com">Contact@DXdesign.com</a></p>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </div>--%>
-
-    <!-- modal window -->
 </asp:Content>
