@@ -25,6 +25,7 @@ namespace WebProject.UserControls
         protected void Page_Load(object sender, EventArgs e)
         {
             Session["lecturerID"] = Site1.loggedInLecturer.lecturerID;
+            Session["grid"] = this.gridView;
             //if (!IsPostBack)
             //{
             //    var s = GridData();
@@ -32,6 +33,21 @@ namespace WebProject.UserControls
             //    gvData.DataSource = data;
             //    gvData.DataBind();                
             //}
+        }
+
+        protected void ChangeGrade_Clicked(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            var parent = btn.Parent;
+            while (parent.GetType() != typeof(GridViewRow))
+            {
+                parent = parent.Parent;
+            }
+
+            Site1.SelectedGridRow = (GridViewRow)parent;
+            Response.Redirect("ViewAssignmentPage.aspx");
+
         }
 
         public void SetGridViewDataSource(TreeView treeView)
@@ -45,7 +61,7 @@ namespace WebProject.UserControls
                 var studentsInCourse = db.studentsInCourses.Where(s => s.courseID == course.courseID).ToList();
 
                 DataTable dt = new DataTable();
-                dt.Columns.AddRange(new DataColumn[3] { new DataColumn("StudentID"), new DataColumn("StudentName"), new DataColumn("Grade")});
+                dt.Columns.AddRange(new DataColumn[3] { new DataColumn("StudentID"), new DataColumn("StudentName"), new DataColumn("Grade") });
                 dt.Rows.Add(new GridRow() { StudentID = 1, StudentName = "me", Grade = 50 });
                 ViewState["data"] = dt;
 
@@ -58,12 +74,14 @@ namespace WebProject.UserControls
             }
         }
 
-        public class GridRow 
+        public class GridRow
         {
+            public int AssignmentID { get; set; }
             public int StudentID { get; set; }
             public string StudentName { get; set; }
             public int Grade { get; set; }
         }
+
 
         //private string GridData()
         //{

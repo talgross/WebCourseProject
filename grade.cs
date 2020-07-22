@@ -12,6 +12,7 @@ namespace WebProject
     using System;
     using System.Collections.Generic;
     
+    [Serializable]
     public partial class grade
     {
         public int index { get; set; }
@@ -19,7 +20,6 @@ namespace WebProject
         public Nullable<int> assignmentID { get; set; }
         public Nullable<int> grade1 { get; set; }
         public byte[] submittedAssignment { get; set; }
-    
         public virtual assignment assignment { get; set; }
         public virtual student student { get; set; }
     }

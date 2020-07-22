@@ -14,6 +14,8 @@ namespace WebProject
         {
             if (!IsPostBack)
             {
+                Site1.MainGridView = StudentsGrid.gridView;
+
                 using (var db = new WebProjectEntities())
                 {
 
@@ -56,17 +58,18 @@ namespace WebProject
                 var students = db.students.ToList();
 
                 DataTable dt = new DataTable();
-                dt.Columns.AddRange(new DataColumn[3] { new DataColumn("StudentID"), new DataColumn("StudentName"), new DataColumn("Grade") });
+                dt.Columns.AddRange(new DataColumn[4] { new DataColumn("AssignmentID"), new DataColumn("StudentID"), new DataColumn("StudentName"), new DataColumn("Grade") });
                 foreach (var student in studentsInCourse)
                 {
                     //var name = (course.studentsInCourses.First(s => s.studentID == student.studentID));
                     var row = new GridRow()
                     {
+                        AssignmentID = assignment.assignmentID,
                         StudentID = student.studentID ?? 0,
                         StudentName = students.Where(s => s.studentID == student.studentID).First().studentName,
                         Grade = grades.Where(g => g.studentID == student.studentID).First().grade1 ?? 0
                     };
-                    dt.Rows.Add(row.StudentID, row.StudentName, row.Grade);
+                    dt.Rows.Add(row.AssignmentID, row.StudentID, row.StudentName, row.Grade);
                 }
 
                 ViewState["data"] = dt;

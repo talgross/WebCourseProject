@@ -17,7 +17,7 @@
             padding-right: 30px;
         }
 
-        #editUser button {
+        #changeGradeModal button {
             width: 80px;
         }
 
@@ -36,12 +36,14 @@
             height:54px;
         }*/
     </style>
-    <script>
+    <script type="text/javascript">
         var app = angular.module('app', [])
             .controller('usersCtrl', function ($scope, $http) {
 
                 $scope.curUser = <%=Session["lecturerID"]%>;
                 $scope.service = "webservice1.asmx/";
+                $scope.angGridView = angular.element(document.getElementById('gridView'));
+
 
                 angular.element(document).ready(function () {
                     //$scope.getUsers();
@@ -79,6 +81,16 @@
 
                 // open modal
                 $scope.userModal = function (user) {
+                    var f = $scope.angGridView.SelectedRow;
+                    //var rowData = user.parentNode.parentNode;
+                    //var rowIndex = rowData.rowIndex;
+                    //var grid = document.getElementsByTagName("asp:GridView")[0];
+
+                    //var row = grid.getAttribute("SelectedRow").val;
+                    //$scope.selectedRow = {
+                    //    StudentID: $scope.angGridView.SelectedRow.Cells[0]
+                    //}
+
                     //if($scope.curUser!=user.Id)return;
                     //if(arguments.length==0){  
                     //  $scope.selectedUser = {
@@ -90,7 +102,7 @@
                     //}else
                     //    $scope.selectedUser = angular.copy(user);
 
-                    $("#editUser").modal("show");
+                    $("#changeGradeModal").modal("show");
                 }
 
                 $scope.save = function () {
@@ -111,7 +123,7 @@
                                 });
                             }
                             $scope.safeApply();
-                            $("#editUser").modal("hide");
+                            $("#changeGradeModal").modal("hide");
 
                         },
                         function (e) { // error
@@ -166,16 +178,21 @@
                 AutoGenerateColumns="false" AllowPaging="True" PageSize="20">
                 <%--OnPageIndexChanging="gvData_PageIndexChanging" OnSorting="gvData_Sorting" --%>
                 <Columns>
+                    <asp:BoundField DataField="AssignmentID" ItemStyle-Width="20%" HeaderText="AssignmentID" SortExpression="Id" />
                     <asp:BoundField DataField="StudentID" ItemStyle-Width="20%" HeaderText="StudentID" SortExpression="Id" />
-
                     <asp:BoundField DataField="StudentName" ItemStyle-Width="15%" HeaderText="StudentName" SortExpression="User" />
                     <asp:BoundField DataField="Grade" HeaderText="Grade" ItemStyle-Width="15px" ItemStyle-HorizontalAlign="Center" SortExpression="Ordered" DataFormatString="{0:#,0.######}" />
                     <%--<asp:ButtonField ButtonType="Button" ControlStyle-CssClass="btn btn-info" Text="Changed Grade" CommandName="userModal()" />--%>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <button type="button" class="btn btn-info" ng-click="userModal()">Changed Grade</button>
+                            <asp:Button runat="server" type="button" class="btn btn-info" OnClick="ChangeGrade_Clicked"  Text="Change Grade" />
                         </ItemTemplate>
                     </asp:TemplateField>
+                    <%--                <asp:TemplateField>
+                        <ItemTemplate>
+                            <button type="button" class="btn btn-info"  ng-click="userModal(this)">Changed Grade</button>
+                        </ItemTemplate>
+                    </asp:TemplateField>--%>
 
                     <%--       <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" DataFormatString="${0:#,0.00}" />
                         <asp:BoundField DataField="CostD" HeaderText="Cost" SortExpression="Cost" DataFormatString="${0:#,0.00}" />
@@ -213,36 +230,42 @@
         </table>--%>
     </div>
     <!-- modal window -->
-    <div id="editUser" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title"><span ng-bind="selectedUser.Id>0 ? 'Update' : 'New'"></span>User <span class="text-info" ng-show="selectedUser.Id>0" ng-bind="selectedUser.Id"></span></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="control-label">StudentID</label>
-                        <input class="form-control" type="text" ng-model="selectedUser.Email" />
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">StudentName</label>
-                        <input class="form-control" type="text" ng-model="selectedUser.Password" />
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Grade</label>
-                        <input class="form-control" type="text" ng-model="selectedUser.Address" />
-                                                <button class="btn btn-success" style="width:auto" type="submit" ng-model="selectedUser.Address" >Submit Grade</button>
+        <asp:ScriptManager runat="server"></asp:ScriptManager>
 
-                        
-                    
-                    <div class="form-group">
-                        <label class="control-label">Submitted Assignment</label>
-                        <iframe class="form-control"  ng-model="selectedUser.Address" />
-                    </div>v class="modal-footer">
+    <div class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <asp:UpdatePanel ID="changeGradeModal" runat="server" class="modal-content">
+                <ContentTemplate>
+                    <div class="modal-header">
+                        <h4 class="modal-title"><span ng-bind="selectedUser.Id>0 ? 'Update' : 'New'"></span>User <span class="text-info" ng-show="selectedUser.Id>0" ng-bind="selectedUser.Id"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="control-label">StudentID</label>
+                            <input class="form-control" type="text" ng-model="selectedRow.StudentID" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">StudentName</label>
+                            <input class="form-control" type="text" ng-model="selectedUser.Password" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Grade</label>
+                            <input class="form-control" type="text" ng-model="selectedUser.Address" />
+                            <button class="btn btn-success" style="width: auto" type="submit" ng-model="selectedUser.Address">Submit Grade</button>
+
+
+
+                            <div class="form-group">
+                                <label class="control-label">Submitted Assignment</label>
+                                <iframe class="form-control" ng-model="selectedUser.Address" />
+                            </div>
+                            v class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Canel</button>
-                    <button type="button" class="btn btn-success" ng-click="save()" ng-show="curUser==selectedUser.Id">Save</button>
-                </div>
-            </div>
+                            <button type="button" class="btn btn-success" ng-click="save()" ng-show="curUser==selectedUser.Id">Save</button>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
     </div>
 </body>

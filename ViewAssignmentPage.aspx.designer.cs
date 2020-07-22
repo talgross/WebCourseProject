@@ -7,19 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebProject.UserControls {
+namespace WebProject {
     
     
-    public partial class StudentsGrid {
-        
-        /// <summary>
-        /// gridView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        public global::System.Web.UI.WebControls.GridView gridView;
+    public partial class WebForm1 {
         
         /// <summary>
         /// changeGradeModal control.

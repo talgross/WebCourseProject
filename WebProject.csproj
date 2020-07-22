@@ -99,6 +99,7 @@
     <Content Include="UserControls\StudentsGrid.ascx" />
     <Content Include="Web.config" />
     <Content Include="LoginWithMasterPage.aspx" />
+    <Content Include="ViewAssignmentPage.aspx" />
     <Content Include="WebService1.asmx" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +195,13 @@
     </Compile>
     <Compile Include="UserControls\StudentsGrid.ascx.designer.cs">
       <DependentUpon>StudentsGrid.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAssignmentPage.aspx.cs">
+      <DependentUpon>ViewAssignmentPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAssignmentPage.aspx.designer.cs">
+      <DependentUpon>ViewAssignmentPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebService1.asmx.cs">
       <DependentUpon>WebService1.asmx</DependentUpon>
