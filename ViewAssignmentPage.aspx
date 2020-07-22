@@ -11,47 +11,68 @@
     <script>
         var app = angular.module('app', [])
             .controller('ViewAssignmentPage', function ($scope, $http) {
+
+                angular.element(document).ready(function () {
+                    //$scope.getUsers();GetAssignmentGrade
+                    $http.get("WebService1.asmx/GetAssignmentGrade", {
+                        reponseType: 'arraybuffer'
+                    })
+                        .then(function (response) {
+                            $scope.grade = $scope.getResponceXML(response);
+
+                        })
+                });
+
                 // open modal
                 $scope.assignmentModalShow = function (user) {
                     $http.get("WebService1.asmx/GetSpecificAssingment", {
                         reponseType: 'arraybuffer'
                     })
                         .then(function (response) {
-                            $scope.assignment = response.data;
+                            $scope.assignment = $scope.getResponceXML(response);
 
-                            var file = new Blob([response.data], { type: 'application/pdf' })
-                            var fileURL = URL.createObjectURL(file)
+                            var file = new Blob([$scope.assignment], { type: 'application/pdf' });
+                            var fileURL = URL.createObjectURL(file);
                             window.open(fileURL);
-                            //$("#assignmentModal").modal("show");
                         })
-                    //var rowData = user.parentNode.parentNode;
-                    //var rowIndex = rowData.rowIndex;
-                    //var grid = document.getElementsByTagName("asp:GridView")[0];
-
-                    //var row = grid.getAttribute("SelectedRow").val;
-                    //$scope.selectedRow = {
-                    //    StudentID: $scope.angGridView.SelectedRow.Cells[0]
-                    //}
-
-                    //if($scope.curUser!=user.Id)return;
-                    //if(arguments.length==0){  
-                    //  $scope.selectedUser = {
-                    //      StudentID: 0,
-                    //        Mail:"",
-                    //        Password:"",
-                    //        Address:""
-                    //    }
-                    //}else
-                    //    $scope.selectedUser = angular.copy(user);
-
-                    //$("#assignmentModal").modal("show");
                 }
 
-                $scope.getAssignemnt = function () {
-                    $http.get("WebService1.asmx/GetSpecificAssingment")
-                        .then(function (response) {
-                            $scope.assignment = response.data;
-                        })
+                // data from service xml -> json
+                $scope.getResponceXML = function (d) {
+                    var xmlDoc = $.parseXML(d.data);
+                    if (xmlDoc == null) { // json format
+                        return JSON.parse(d.data.d);
+                    } else { // xml format
+                        return JSON.parse(xmlDoc.documentElement.textContent);
+                    }
+                }
+
+                $scope.saveGrade = function () {
+                    var user = angular.copy($scope.selectedUser);
+                    var isNew = $scope.selectedUser.Id == 0;
+                    var url = $scope.service + "SaveUser";
+                    var data = { data: user };
+                    $http.post(url, data, null).then(
+                        function (d) { // success
+                            if (isNew) {
+                                user.Id = d.data.d;
+                                $scope.users.push(user);
+                            } else {
+                                $scope.users.map((x, i) => {
+                                    if (x.Id == d.data.d) {
+                                        $scope.users[i] = user;
+                                    }
+                                });
+                            }
+                            $scope.safeApply();
+                            $("#changeGradeModal").modal("hide");
+
+                        },
+                        function (e) { // error
+                            console.log(e);
+                        }
+                    )
+
                 }
             });
     </script>
@@ -60,7 +81,7 @@
     <div class="contact" ng-app="app" ng-controller="ViewAssignmentPage">
         <div class="container">
             <div class="contact-agileinfo">
-                <asp:UpdatePanel ID="changeGradeModal" runat="server" class="col-md-15">
+                <asp:UpdatePanel ID="changeGradeModal" runat="server" class="col-md-8 align-self-center">
                     <ContentTemplate>
                         <div class="card-header">
                             <div class="w3l-heading">
@@ -71,18 +92,18 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label class="control-label">StudentID</label>
-                                <input data-title="x.StudentID" id="studentID" class="form-control" readonly="readonly" type="text" ng-model="selectedRow.StudentID" />
+                                <input data-title="x.StudentID" id="studentID" class="form-control" readonly="readonly" type="text" ng-model="grade.studentID" />
                             </div>
                             <div class="form-group">
                                 <label class="control-label">StudentName</label>
-                                <input id="studentName" class="form-control" readonly="readonly" type="text" ng-model="selectedUser.Password" />
+                                <input id="studentName" class="form-control" readonly="readonly" type="text" ng-model="electedUser.Address" />
                             </div>
                             <div class="form-group ">
                                 <label class="control-label">Grade</label>
-                                <input class="form-control" type="text" ng-model="selectedUser.Address" />
+                                <input class="form-control" type="text" required="" ng-model="grade.grade1" />
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-success col-2" style="width: auto" type="submit" ng-model="selectedUser.Address">Submit Grade</button>
+                                <button class="btn btn-success col-2" style="width: auto" ng-click="saveGrade()" type="submit" ng-model="selectedUser.Address">Submit Grade</button>
                             </div>
 
 
@@ -102,7 +123,7 @@
         </div>
     </div>
 
-    <div class="contact">
+<%--    <div class="contact">
         <div class="container">
             <div class="w3l-heading">
                 <h2 class="w3ls_head">Mail Us</h2>
@@ -133,22 +154,8 @@
 
             </div>
 
-
-
-
         </div>
-    </div>
+    </div>--%>
 
     <!-- modal window -->
-    <div id="assignmentModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <iframe  class="form-control" ng-src="data:image/DOC;base64,{{assignment}}" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </asp:Content>

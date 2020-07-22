@@ -46,6 +46,19 @@ namespace grid_db
             }            
         }
 
+        [WebMethod(EnableSession = true)]
+        public string GetAssignmentGrade()
+        {
+            using(var db = new WebProjectEntities())
+            {
+                var selectedRow = Site1.SelectedGridRow;
+                var assignmentGrades = db.grades.ToList();
+                var assignment = assignmentGrades.Where(g => g.assignmentID == int.Parse(selectedRow.Cells[0].Text) && g.studentID == int.Parse(selectedRow.Cells[1].Text)).ToList();
+                var a = assignment[0].submittedAssignment;
+                return JsonConvert.SerializeObject(assignment[0]);
+            }            
+        }
+
 
         [WebMethod(EnableSession = true)]
         public int RemUser(int id)

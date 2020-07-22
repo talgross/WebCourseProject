@@ -9,6 +9,7 @@
 
 namespace WebProject
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -20,7 +21,10 @@ namespace WebProject
         public Nullable<int> assignmentID { get; set; }
         public Nullable<int> grade1 { get; set; }
         public byte[] submittedAssignment { get; set; }
+        [JsonIgnore]
         public virtual assignment assignment { get; set; }
+        [JsonIgnore]
+
         public virtual student student { get; set; }
     }
 }
