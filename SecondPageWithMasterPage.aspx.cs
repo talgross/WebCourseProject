@@ -12,6 +12,10 @@ namespace WebProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(Site1.loggedInLecturer == null)
+            {
+                Response.Redirect("LoginWithMasterPage.aspx");
+            }
             if (!IsPostBack)
             {
                 Site1.MainGridView = StudentsGrid.gridView;

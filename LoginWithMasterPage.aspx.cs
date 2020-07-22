@@ -7,7 +7,15 @@ namespace WebProject
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                errorMessage.Visible = false;
+                this.lblError.Visible = false;
+            }
+            else
+            {
+                // after submit
+            }
         }
 
         protected void register_Click(object sender, EventArgs e)
@@ -23,7 +31,6 @@ namespace WebProject
         private void ShowLogin(bool show)
         {
             login.Visible = show;
-            registration.Visible = !show;
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
@@ -43,17 +50,12 @@ namespace WebProject
                         loginSuccessful = true;
                         Site1.loggedInLecturer = lecturer;  // Save the logged in lecturer
                         Response.Redirect(nameof(WebProject.SecondPageWithMasterPage) + ".aspx");
+                        return;
                     }
                 }
-            }
-
-            if (loginSuccessful == false)
-            {
+                errorMessage.Visible = true;
                 this.lblError.Visible = true;
-            }
-            else
-            {
-                this.lblError.Visible = false;
+
             }
         }
 

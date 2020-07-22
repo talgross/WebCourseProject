@@ -7,8 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebProject
-{
+namespace WebProject {
     
     
     public partial class WebForm2 {
@@ -41,6 +40,15 @@ namespace WebProject
         protected global::System.Web.UI.WebControls.TextBox password;
         
         /// <summary>
+        /// errorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator errorMessage;
+        
+        /// <summary>
         /// lblError control.
         /// </summary>
         /// <remarks>
@@ -66,23 +74,5 @@ namespace WebProject
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnLogin;
-        
-        /// <summary>
-        /// registration control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel registration;
-        
-        /// <summary>
-        /// loginLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton loginLink;
     }
 }

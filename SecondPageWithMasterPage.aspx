@@ -6,26 +6,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <script>
-        var app = angular.module('app', [])
-            .controller('usersCtrl', function ($scope, $http) {
-
-                $scope.something = function () {
-
-                }
-
-            });
-    </script>
     <asp:Panel runat="server" ID="SecondPage">
 
-        <%--        <div class="container">
-            <h1 runat="server" id="hText"></h1>
-            <div>
-                <asp:LinkButton runat="server" ID="hLogout" Text="Logout" OnClick="hLogout_Click"></asp:LinkButton></div>
-        </div>--%>
+        <%-- --%>
         <div class="container-fluid" style="margin-left: 0px">
             <div class="row">
                 <div class="col-md-2 list-group">
+                    <label class="col-form-label-lg">Courses</label>
                     <div>
                         <asp:TreeView ID="treeView" runat="server" OnSelectedNodeChanged="SelectedNodeChanged" NodeStyle-CssClass="list-group-item-text" BorderStyle="Ridge" BorderColor="AliceBlue" ShowLines="true" />
                     </div>
@@ -34,20 +21,6 @@
                     <uc3:StudentsGrid runat="server" ID="StudentsGrid" />
                 </div>
             </div>
-
-
-            <%--            <div>
-                <div style="float:left;width:200px;border:1px solid silver">
-
-                </div>
-                <div style="float:left;">content</div>
-                <div style="clear:both"></div>
-            </div>--%>
-
-
-
-            <%--    <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
-            </asp:ContentPlaceHolder>--%>
         </div>
     </asp:Panel>
 </asp:Content>

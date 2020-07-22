@@ -93,7 +93,7 @@
     </script>
     <asp:ScriptManager runat="server"></asp:ScriptManager>
     <!-- contact -->
-    <div class="contact" ng-app="app" ng-controller="ViewAssignmentPage">
+    <div class="modal-content" ng-app="app" ng-controller="ViewAssignmentPage">
         <div class="container align-items-center" style="margin: 40px auto">
             <div class="contact-agileinfo">
                 <asp:UpdatePanel ID="changeGradeModal" runat="server" class="col-md-8 align-self-center">

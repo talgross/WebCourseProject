@@ -10,7 +10,7 @@
             </div>
             <div class="contact-agileinfo">
                 <div class="col-md-2 contact-right">
-                    <form class="form-group" action="mailto:talgross9@Gmail.com" method="post">
+                    <form class="form-group" action="mailto:GradeIT@Gmail.com" method="post">
                         <div class="form-group">
                             <input type="text" name="Name" placeholder="Name" required="" />
                         </div>
@@ -32,8 +32,8 @@
                 <br />
                 <div class="col-md-5 contact-left">
                     <div class="address">
-                        <h5>Email:</h5>
-                        <p><i class="glyphicon glyphicon-envelope"></i><a href="mailto:talgross9@Gmail.com">someone@mail.com</a></p>
+                        <h5>Our Email:</h5>
+                        <p><i class="glyphicon glyphicon-envelope"></i><a href="mailto:GradeIT@Gmail.com">GradeIT@gmail.com</a></p>
                     </div>
                 </div>
 

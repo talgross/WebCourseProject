@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebProject
 {
@@ -12,6 +7,14 @@ namespace WebProject
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void clickLogout(object sender, EventArgs e)
+        {
+            Site1.loggedInLecturer = null;
+            Session.Clear();
+            Session.Abandon();
+            Response.Redirect("LoginWithMasterPage.aspx");
         }
     }
 }

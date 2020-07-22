@@ -61,15 +61,9 @@ namespace grid_db
 
 
         [WebMethod(EnableSession = true)]
-        public int RemUser(int id)
+        public int GetLoggedUserID()
         {
-            using (var db = new WebProjectEntities())
-            {
-                var lecturer = db.lecturers.Where(i => i.lecturerID == id).FirstOrDefault();
-                db.lecturers.Remove(lecturer);
-                db.SaveChanges();
-                return lecturer.lecturerID;
-            }
+            return Site1.loggedInLecturer != null ? Site1.loggedInLecturer.lecturerID : -1;
         }
 
 
