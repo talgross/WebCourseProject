@@ -12,6 +12,7 @@ namespace WebProject
         internal static lecturer loggedInLecturer { get; set; } = null;
         internal static GridView MainGridView { get; set; } = null;
         internal static GridViewRow  SelectedGridRow { get; set; } = null;
+        internal static TreeNode  SelectedTreeNode { get; set; } = null;
         protected void Page_Load(object sender, EventArgs e)
         {
 

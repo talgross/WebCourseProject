@@ -34,10 +34,26 @@ namespace WebProject
                         {
                             var assingmentTreeNode = new TreeNode();
                             assingmentTreeNode.Text = assignment.assignmentName;
+                            assingmentTreeNode.Value = courseTreeNode.Text + assignment.assignmentName;
                             //assingmentTreeNode.SelectAction = TreeNodeSelectAction.Select;
                             courseTreeNode.ChildNodes.Add(assingmentTreeNode);
                         }
                         treeView.Nodes.Add(courseTreeNode);
+                    }
+                }
+
+                if (Site1.SelectedTreeNode != null)
+                {
+                    foreach (TreeNode courseNode in treeView.Nodes)
+                    {
+                        foreach (TreeNode assingmentNode in courseNode.ChildNodes)
+                        {
+                            if (assingmentNode.Value == Site1.SelectedTreeNode.Value)
+                            {
+                                assingmentNode.Select();
+                                this.SelectedNodeChanged(this, EventArgs.Empty);
+                            }
+                        }
                     }
                 }
             }
@@ -45,6 +61,8 @@ namespace WebProject
             {
                 StudentsGrid.gridView.DataSource = (DataTable)ViewState["data"];
             }
+
+
         }
 
         protected void SelectedNodeChanged(object sender, EventArgs e)
@@ -77,6 +95,7 @@ namespace WebProject
                 }
 
                 ViewState["data"] = dt;
+                Site1.SelectedTreeNode = selectedNode;
 
                 StudentsGrid.gridView.DataSource = (DataTable)ViewState["data"];
                 StudentsGrid.gridView.DataBind();
