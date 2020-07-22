@@ -12,6 +12,8 @@
         var app = angular.module('app', [])
             .controller('ViewAssignmentPage', function ($scope, $http) {
 
+                $scope.service = "WebService1.asmx/";
+
                 angular.element(document).ready(function () {
                     //$scope.getUsers();GetAssignmentGrade
                     $http.get("WebService1.asmx/GetAssignmentGrade", {
@@ -25,7 +27,7 @@
 
                 // open modal
                 $scope.assignmentModalShow = function (user) {
-                    $http.get("WebService1.asmx/GetSpecificAssingment", {
+                    $http.get($scope.service + "GetSpecificAssingment", {
                         reponseType: 'arraybuffer'
                     })
                         .then(function (response) {
@@ -48,38 +50,51 @@
                 }
 
                 $scope.saveGrade = function () {
-                    var user = angular.copy($scope.selectedUser);
-                    var isNew = $scope.selectedUser.Id == 0;
-                    var url = $scope.service + "SaveUser";
+                    var user = angular.copy($scope.grade);
+                    //var isNew = $scope.selectedUser.Id == 0;
+                    var url = $scope.service + "SaveGrade";
                     var data = { data: user };
                     $http.post(url, data, null).then(
                         function (d) { // success
-                            if (isNew) {
-                                user.Id = d.data.d;
-                                $scope.users.push(user);
-                            } else {
-                                $scope.users.map((x, i) => {
-                                    if (x.Id == d.data.d) {
-                                        $scope.users[i] = user;
-                                    }
-                                });
-                            }
+                            //if (isNew) {
+                            //    user.Id = d.data.d;
+                            //    $scope.users.push(user);
+                            //} else {
+                            //    $scope.users.map((x, i) => {
+                            //        if (x.Id == d.data.d) {
+                            //            $scope.users[i] = user;
+                            //        }
+                            //    });
+                            //}
                             $scope.safeApply();
-                            $("#changeGradeModal").modal("hide");
+                            angular.element(document.location = "SecondPageWithMasterPage.aspx");
+                            //$("#changeGradeModal").modal("hide");
 
                         },
                         function (e) { // error
                             console.log(e);
                         }
                     )
-
                 }
+
+                //
+                $scope.safeApply = function (fn) {
+                    var phase = this.$root.$$phase;
+                    if (phase == '$apply' || phase == '$digest') {
+                        if (fn && (typeof (fn) === 'function')) {
+                            fn();
+                        }
+                    } else {
+                        this.$apply(fn);
+                    }
+                };
+
             });
     </script>
     <asp:ScriptManager runat="server"></asp:ScriptManager>
     <!-- contact -->
     <div class="contact" ng-app="app" ng-controller="ViewAssignmentPage">
-        <div class="container">
+        <div class="container align-items-center" style="margin: 40px auto">
             <div class="contact-agileinfo">
                 <asp:UpdatePanel ID="changeGradeModal" runat="server" class="col-md-8 align-self-center">
                     <ContentTemplate>
@@ -94,23 +109,15 @@
                                 <label class="control-label">StudentID</label>
                                 <input data-title="x.StudentID" id="studentID" class="form-control" readonly="readonly" type="text" ng-model="grade.studentID" />
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">StudentName</label>
-                                <input id="studentName" class="form-control" readonly="readonly" type="text" ng-model="electedUser.Address" />
-                            </div>
                             <div class="form-group ">
                                 <label class="control-label">Grade</label>
                                 <input class="form-control" type="text" required="" ng-model="grade.grade1" />
                             </div>
-                            <div class="form-group">
-                                <button class="btn btn-success col-2" style="width: auto" ng-click="saveGrade()" type="submit" ng-model="selectedUser.Address">Submit Grade</button>
-                            </div>
+                            <div class="row row-cols-1 align-items-center ">
+                                <button class="btn btn-info col-md-5 " type="button" ng-click="assignmentModalShow()" ng-model="selectedUser.Address">View Submitted Assignment</button>
+                                <span class="col-sm-2"></span>
+                                <button class="btn btn-success col-md-5"  ng-click="saveGrade()" type="submit" ng-model="selectedUser.Address">Submit Grade</button>
 
-
-
-                            <div class="form-group">
-                                <button class="btn btn-info" type="button" ng-click="assignmentModalShow()" ng-model="selectedUser.Address">View Submitted Assignment</button>
-                                <%--<iframe class="form-control" ng-model="selectedUser.Address" />--%>
                             </div>
 
                             <%--                    <button type="button" class="btn btn-danger" data-dismiss="modal">Canel</button>--%>
@@ -123,7 +130,7 @@
         </div>
     </div>
 
-<%--    <div class="contact">
+    <%--    <div class="contact">
         <div class="container">
             <div class="w3l-heading">
                 <h2 class="w3ls_head">Mail Us</h2>

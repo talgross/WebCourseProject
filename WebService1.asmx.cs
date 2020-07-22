@@ -74,7 +74,7 @@ namespace grid_db
 
 
         [WebMethod(EnableSession = true)]
-        public int SaveUser()
+        public int SaveGrade()
         {
             using(var stream = new MemoryStream())
             {
@@ -86,16 +86,19 @@ namespace grid_db
                 using(var db = new WebProjectEntities())
                 {
                     var d = data.data;
-                    int id = Convert.ToInt32(d["Id"]);
-                    var lecturer = id == 0 ? new lecturer() : db.lecturers.Where(i => i.lecturerID == id).FirstOrDefault();
-                    //user.Email = Convert.ToString(d["Email"]);
+                    int studentID = Convert.ToInt32(d["studentID"]);
+                    int assignmentID = Convert.ToInt32(d["assignmentID"]);
+                    int grade1 = Convert.ToInt32(d["grade1"]);
+                    //var lecturer = id == 0 ? new lecturer() : db.lecturers.Where(i => i.lecturerID == id).FirstOrDefault();
+                    var gradeEntry = db.grades.Where(ge => ge.studentID == studentID && ge.assignmentID == assignmentID).FirstOrDefault();
+                    gradeEntry.grade1 = grade1;
                     //user.Password = Convert.ToString(d["Password"]);
                     //user.Address = Convert.ToString(d["Address"]);
-                    
-                    if (id == 0) db.lecturers.Add(lecturer);
+
+                    //if (assignmentID == 0) db.lecturers.Add(lecturer);
                     db.SaveChanges();
 
-                    return lecturer.lecturerID;
+                    return gradeEntry.index;
                 }
             }
             
